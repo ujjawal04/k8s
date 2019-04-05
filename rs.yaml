@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: workset
+  labels:
+    app: kubia
+    env: staging
+spec:
+  replicas: 5
+  selector:
+    matchExpressions:
+    - key: app
+      operator: In
+      values:
+      - kubia
+      - work
+  template:
+    metadata:
+      labels:
+        app: kubia
+        env: staging
+    spec:
+      containers:
+      - name: kubia
+        image: luksa/kubia
+        ports:
+        - containerPort: 8080
